@@ -1,0 +1,38 @@
+[
+  {
+    "id": "despliegue-mide-chatbot",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "proyecto",
+        "value": "mide-chatbot"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-document-ai",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "proyecto",
+        "value": "document_ai"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-notificaciones-twilio",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "proyecto",
+        "value": "notificaciones_twilio"
+      }
+    ]
+  }
+]
