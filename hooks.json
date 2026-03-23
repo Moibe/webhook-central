@@ -3,6 +3,7 @@
     "id": "despliegue-mide-chatbot",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de mide-chatbot iniciado",
     "pass-arguments-to-command": [
       {
         "source": "string",
@@ -15,6 +16,7 @@
     "id": "despliegue-document-ai",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de document_ai iniciado",
     "pass-arguments-to-command": [
       {
         "source": "string",
@@ -27,6 +29,7 @@
     "id": "despliegue-notificaciones-twilio",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de notificaciones_twilio iniciado",
     "pass-arguments-to-command": [
       {
         "source": "string",
