@@ -30,6 +30,27 @@ for var in PROJECT_ROOT PROJECT_BRANCH VENV_PATH PM2_NAME; do
     fi
 done
 
+# LOCK FILE: evitar deploys simultáneos del mismo proyecto
+LOCK_FILE="/tmp/deploy-${PROJECT_NAME}.lock"
+
+if [ -f "$LOCK_FILE" ]; then
+    LOCK_PID=$(cat "$LOCK_FILE")
+    if kill -0 "$LOCK_PID" 2>/dev/null; then
+        echo "❌ Error: Ya hay un despliegue de $PROJECT_NAME en ejecución (PID: $LOCK_PID)"
+        echo "Intenta nuevamente después de que termine el despliegue actual"
+        exit 1
+    else
+        # PID viejo, limpiar lock file
+        rm -f "$LOCK_FILE"
+    fi
+fi
+
+# Crear lock file
+echo "$$" > "$LOCK_FILE"
+
+# Limpiar lock file al salir (éxito o error)
+trap "rm -f $LOCK_FILE" EXIT
+
 echo "="*60
 echo "📍 Iniciando despliegue de: $PROJECT_NAME"
 echo "📁 Directorio: $PROJECT_ROOT"
