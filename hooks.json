@@ -34,5 +34,17 @@
         "name": "notificaciones_twilio"
       }
     ]
+  },
+  {
+    "id": "despliegue-svelte-mide",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de svelte_mide iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "svelte_mide"
+      }
+    ]
   }
 ]
