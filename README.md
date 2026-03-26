@@ -74,11 +74,22 @@ rm /home/mbriseno/code/mide-chatbot/script_despliegue.sh
 
 1. Crear archivo en `projects/<nombre>.conf` con:
    ```bash
+  APP_STACK="python"
    PROJECT_ROOT="/home/mbriseno/code/<nombre>"
    PROJECT_BRANCH="main"
-   VENV_PATH="$PROJECT_ROOT/venv"
    PM2_NAME="<nombre-api>"
+
+  # Solo para APP_STACK="python"
+  VENV_PATH="$PROJECT_ROOT/venv"
    ```
+
+  Para una app Svelte:
+  ```bash
+  APP_STACK="svelte"
+  PROJECT_ROOT="/home/mbriseno/code/<nombre>"
+  PROJECT_BRANCH="main"
+  PM2_NAME="<nombre-frontend>"
+  ```
 
 2. Agregar entrada en `hooks.json`:
    ```json
@@ -89,8 +100,7 @@ rm /home/mbriseno/code/mide-chatbot/script_despliegue.sh
      "pass-arguments-to-command": [
        {
          "source": "string",
-         "name": "proyecto",
-         "value": "<nombre>"
+         "name": "<nombre>"
        }
      ]
    }
