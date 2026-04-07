@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mide-chatbot",
+    "name": "Mide Chatbot",
+    "stack": "python",
+    "branch": "dev",
+    "pm2_name": "mide-chatbot-api",
+    "deploy_url": "/hooks/despliegue-mide-chatbot"
+  },
+  {
+    "id": "document_ai",
+    "name": "Document AI",
+    "stack": "python",
+    "branch": "main",
+    "pm2_name": "document-ai-api",
+    "deploy_url": "/hooks/despliegue-document-ai"
+  },
+  {
+    "id": "notificaciones_twilio",
+    "name": "Notificaciones Twilio",
+    "stack": "python",
+    "branch": "main",
+    "pm2_name": "notificaciones-twilio",
+    "deploy_url": "/hooks/despliegue-notificaciones-twilio"
+  },
+  {
+    "id": "svelte_mide",
+    "name": "Svelte Mide",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "svelte-mide",
+    "deploy_url": "/hooks/despliegue-svelte-mide",
+    "app_url": "http://172.10.30.15:4173"
+  },
+  {
+    "id": "webhook-central-ui",
+    "name": "Webhook Central UI",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "webhook-central-ui",
+    "deploy_url": "/hooks/despliegue-webhook-central-ui",
+    "app_url": "http://172.10.30.15:4174"
+  }
+]
