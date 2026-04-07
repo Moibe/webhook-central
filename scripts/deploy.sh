@@ -114,6 +114,13 @@ if [ "$APP_STACK" = "svelte" ]; then
     echo "✅ Dependencias y build Svelte completados"
 fi
 
+# POST BUILD: ejecutar comandos adicionales si están definidos en el .conf
+if [ -n "$POST_BUILD" ]; then
+    echo "🔧 Ejecutando post-build..."
+    eval "$POST_BUILD" || { echo "⚠️ Advertencia: post-build falló pero continuando"; }
+    echo "✅ Post-build completado"
+fi
+
 # 3. REINICIAR PM2
 echo "🔄 Step 3/4: Reiniciando proceso PM2..."
 pm2 restart "$PM2_NAME" || { echo "❌ Error reiniciando PM2: $PM2_NAME"; exit 1; }
