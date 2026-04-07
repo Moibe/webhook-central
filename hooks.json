@@ -46,5 +46,17 @@
         "name": "svelte_mide"
       }
     ]
+  },
+  {
+    "id": "despliegue-webhook-central-ui",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de webhook-central-ui iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "webhook-central-ui"
+      }
+    ]
   }
 ]
