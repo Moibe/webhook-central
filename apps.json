@@ -48,5 +48,14 @@
     "branch": "dev",
     "pm2_name": "constructor-agente-rag",
     "deploy_url": "/hooks/despliegue-constructor-agente-rag"
+  },
+  {
+    "id": "buzzword-agentes-ui",
+    "name": "Buzzword Agentes UI",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "buzzword-agentes-ui",
+    "deploy_url": "/hooks/despliegue-buzzword-agentes-ui",
+    "app_url": "http://172.10.30.15:4175"
   }
 ]

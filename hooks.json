@@ -70,5 +70,17 @@
         "name": "constructor-agente-rag"
       }
     ]
+  },
+  {
+    "id": "despliegue-buzzword-agentes-ui",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de buzzword-agentes-ui iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "buzzword-agentes-ui"
+      }
+    ]
   }
 ]
