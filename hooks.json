@@ -58,5 +58,17 @@
         "name": "webhook-central-ui"
       }
     ]
+  },
+  {
+    "id": "despliegue-constructor-agente-rag",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de constructor-agente-rag iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "constructor-agente-rag"
+      }
+    ]
   }
 ]

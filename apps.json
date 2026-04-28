@@ -40,5 +40,13 @@
     "pm2_name": "webhook-central-ui",
     "deploy_url": "/hooks/despliegue-webhook-central-ui",
     "app_url": "http://172.10.30.15:4174"
+  },
+  {
+    "id": "constructor-agente-rag",
+    "name": "Constructor Agente RAG",
+    "stack": "python",
+    "branch": "dev",
+    "pm2_name": "constructor-agente-rag",
+    "deploy_url": "/hooks/despliegue-constructor-agente-rag"
   }
 ]
