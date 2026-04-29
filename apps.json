@@ -5,7 +5,8 @@
     "stack": "python",
     "branch": "dev",
     "pm2_name": "mide-chatbot-api",
-    "deploy_url": "/hooks/despliegue-mide-chatbot"
+    "deploy_url": "/hooks/despliegue-mide-chatbot",
+    "app_url": "http://172.10.30.15:8080"
   },
   {
     "id": "document_ai",
@@ -13,7 +14,8 @@
     "stack": "python",
     "branch": "main",
     "pm2_name": "document-ai-api",
-    "deploy_url": "/hooks/despliegue-document-ai"
+    "deploy_url": "/hooks/despliegue-document-ai",
+    "app_url": "http://172.10.30.15:8099"
   },
   {
     "id": "notificaciones_twilio",
@@ -21,7 +23,8 @@
     "stack": "python",
     "branch": "main",
     "pm2_name": "notificaciones-twilio",
-    "deploy_url": "/hooks/despliegue-notificaciones-twilio"
+    "deploy_url": "/hooks/despliegue-notificaciones-twilio",
+    "app_url": "http://172.10.30.15:8082"
   },
   {
     "id": "svelte_mide",
@@ -47,7 +50,8 @@
     "stack": "python",
     "branch": "dev",
     "pm2_name": "constructor-agente-rag",
-    "deploy_url": "/hooks/despliegue-constructor-agente-rag"
+    "deploy_url": "/hooks/despliegue-constructor-agente-rag",
+    "app_url": "http://172.10.30.15:8077"
   },
   {
     "id": "buzzword-agentes-ui",
@@ -57,5 +61,14 @@
     "pm2_name": "buzzword-agentes-ui",
     "deploy_url": "/hooks/despliegue-buzzword-agentes-ui",
     "app_url": "http://172.10.30.15:4175"
+  },
+  {
+    "id": "conmutador",
+    "name": "Conmutador",
+    "stack": "python",
+    "branch": "main",
+    "pm2_name": "conmutador",
+    "deploy_url": "/hooks/despliegue-conmutador",
+    "app_url": "http://172.10.30.15:7860"
   }
 ]

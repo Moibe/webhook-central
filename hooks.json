@@ -82,5 +82,17 @@
         "name": "buzzword-agentes-ui"
       }
     ]
+  },
+  {
+    "id": "despliegue-conmutador",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de conmutador iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "conmutador"
+      }
+    ]
   }
 ]
