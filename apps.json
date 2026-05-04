@@ -6,7 +6,8 @@
     "branch": "dev",
     "pm2_name": "mide-chatbot-api",
     "deploy_url": "/hooks/despliegue-mide-chatbot",
-    "app_url": "http://172.10.30.15:8080"
+    "app_url": "http://172.10.30.15:8080",
+    "public_url": "https://mide-chatbot-api.buzzword.com.mx"
   },
   {
     "id": "document_ai",
@@ -33,7 +34,8 @@
     "branch": "main",
     "pm2_name": "svelte-mide",
     "deploy_url": "/hooks/despliegue-svelte-mide",
-    "app_url": "http://172.10.30.15:4173"
+    "app_url": "http://172.10.30.15:4173",
+    "public_url": "https://mide-chatbot.buzzword.com.mx"
   },
   {
     "id": "webhook-central-ui",
