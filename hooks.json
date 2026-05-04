@@ -94,5 +94,17 @@
         "name": "conmutador"
       }
     ]
+  },
+  {
+    "id": "despliegue-host-asistentes",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de host-asistentes iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "host-asistentes"
+      }
+    ]
   }
 ]

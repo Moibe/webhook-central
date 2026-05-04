@@ -70,5 +70,14 @@
     "pm2_name": "conmutador",
     "deploy_url": "/hooks/despliegue-conmutador",
     "app_url": "http://172.10.30.15:7860"
+  },
+  {
+    "id": "host-asistentes",
+    "name": "Host Asistentes",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "host-asistentes",
+    "deploy_url": "/hooks/despliegue-host-asistentes",
+    "app_url": "http://172.10.30.15:4176"
   }
 ]
