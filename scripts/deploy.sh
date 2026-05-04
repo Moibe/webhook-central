@@ -110,7 +110,15 @@ if [ "$APP_STACK" = "svelte" ]; then
         exit 1
     fi
 
-    npm run build || { echo "❌ Error en npm run build"; exit 1; }
+    # BUILD_MODE permite controlar el --mode que recibe vite build
+    # (ej. "staging" para que import.meta.env.MODE sea "staging").
+    # Si no se define, vite build usa "production" por defecto.
+    if [ -n "$BUILD_MODE" ]; then
+        echo "🧱 Compilando con --mode $BUILD_MODE"
+        npm run build -- --mode "$BUILD_MODE" || { echo "❌ Error en npm run build"; exit 1; }
+    else
+        npm run build || { echo "❌ Error en npm run build"; exit 1; }
+    fi
     echo "✅ Dependencias y build Svelte completados"
 fi
 
