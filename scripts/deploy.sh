@@ -13,7 +13,8 @@ if [ -z "$PROJECT_NAME" ]; then
 fi
 
 # Cargar configuración del proyecto
-CONFIG_FILE="$(dirname "$0")/../projects/${PROJECT_NAME}.conf"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/../projects/${PROJECT_NAME}.conf"
 
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "❌ Error: Archivo de configuración no encontrado: $CONFIG_FILE"
@@ -62,27 +63,119 @@ fi
 # Crear lock file
 echo "$$" > "$LOCK_FILE"
 
-# Limpiar lock file al salir (éxito o error)
-trap "rm -f $LOCK_FILE" EXIT
+# === Logging estructurado ===
+LOG_DIR="$SCRIPT_DIR/../logs"
+DEPLOY_ID="$(date +%s)-$$"
+DEPLOY_LOG_REL="${PROJECT_NAME}/${DEPLOY_ID}.log"
+DEPLOY_LOG="$LOG_DIR/$DEPLOY_LOG_REL"
+DEPLOYS_JSONL="$LOG_DIR/deploys.jsonl"
+mkdir -p "$(dirname "$DEPLOY_LOG")"
+touch "$DEPLOYS_JSONL"
 
-echo "="*60
+START_TS=$(date +%s)
+STARTED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+CURRENT_STEP="setup"
+ENDED_AT=""
+DURATION_S=0
+STATUS=""
+EXIT_CODE_VAL=0
+FAILED_STEP=""
+ERROR_TAIL=""
+
+emit_event() {
+    DEPLOY_ID="$DEPLOY_ID" \
+    PROJECT_NAME="$PROJECT_NAME" \
+    STARTED_AT="$STARTED_AT" \
+    PROJECT_BRANCH="$PROJECT_BRANCH" \
+    APP_STACK="$APP_STACK" \
+    DEPLOY_LOG_REL="$DEPLOY_LOG_REL" \
+    EVENT="$1" \
+    ENDED_AT="$ENDED_AT" \
+    DURATION_S="$DURATION_S" \
+    STATUS="$STATUS" \
+    EXIT_CODE_VAL="$EXIT_CODE_VAL" \
+    FAILED_STEP="$FAILED_STEP" \
+    ERROR_TAIL="$ERROR_TAIL" \
+    python3 -c '
+import json, os
+ev = os.environ["EVENT"]
+rec = {
+    "id": os.environ["DEPLOY_ID"],
+    "app": os.environ["PROJECT_NAME"],
+    "event": ev,
+    "started_at": os.environ["STARTED_AT"],
+    "branch": os.environ.get("PROJECT_BRANCH",""),
+    "stack": os.environ.get("APP_STACK",""),
+    "log_file": os.environ["DEPLOY_LOG_REL"],
+}
+if ev == "finished":
+    rec["ended_at"] = os.environ.get("ENDED_AT","")
+    try:
+        rec["duration_s"] = int(os.environ.get("DURATION_S","0") or 0)
+    except ValueError:
+        rec["duration_s"] = 0
+    rec["status"] = os.environ.get("STATUS","")
+    try:
+        rec["exit_code"] = int(os.environ.get("EXIT_CODE_VAL","0") or 0)
+    except ValueError:
+        rec["exit_code"] = 0
+    rec["failed_step"] = os.environ.get("FAILED_STEP","")
+    rec["error_tail"] = os.environ.get("ERROR_TAIL","")
+print(json.dumps(rec, ensure_ascii=False))
+' >> "$DEPLOYS_JSONL"
+}
+
+finalize() {
+    local code=$?
+    END_TS=$(date +%s)
+    DURATION_S=$((END_TS - START_TS))
+    ENDED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    EXIT_CODE_VAL=$code
+    if [ "$code" -eq 0 ]; then
+        STATUS="success"
+        FAILED_STEP=""
+        ERROR_TAIL=""
+    else
+        STATUS="failed"
+        FAILED_STEP="$CURRENT_STEP"
+        if [ -f "$DEPLOY_LOG" ]; then
+            ERROR_TAIL=$(tail -n 30 "$DEPLOY_LOG")
+        fi
+    fi
+    emit_event "finished"
+    rm -f "$LOCK_FILE"
+}
+trap finalize EXIT
+
+# Evento "started" antes de redirigir output (queda fuera del log de deploy
+# porque va directo al jsonl)
+emit_event "started"
+
+# A partir de aquí, todo lo que se imprima va a stdout (visible vía pm2 logs
+# del webhook-listener) Y al log persistente del deploy.
+exec > >(tee -a "$DEPLOY_LOG") 2>&1
+
+echo "============================================================"
 echo "📍 Iniciando despliegue de: $PROJECT_NAME"
 echo "📁 Directorio: $PROJECT_ROOT"
 echo "🌿 Rama: $PROJECT_BRANCH"
 echo "🧱 Stack: $APP_STACK"
+echo "🆔 Deploy ID: $DEPLOY_ID"
 echo "⏰ Hora: $(date)"
-echo "="*60
+echo "============================================================"
 
-# Navegar al directorio del proyecto
+CURRENT_STEP="cd_project"
 cd "$PROJECT_ROOT" || { echo "❌ No se pudo acceder a $PROJECT_ROOT"; exit 1; }
 
 # 1. ACTUALIZAR CÓDIGO
+CURRENT_STEP="git_pull"
 echo "🔄 Step 1/4: Haciendo git pull..."
 git checkout "$PROJECT_BRANCH" || { echo "❌ Error en git checkout"; exit 1; }
 git pull origin "$PROJECT_BRANCH" || { echo "❌ Error en git pull"; exit 1; }
 echo "✅ Código actualizado"
 
 # 2. ACTUALIZAR DEPENDENCIAS / BUILD
+CURRENT_STEP="dependencies"
 echo "🔄 Step 2/4: Dependencias y build para $APP_STACK..."
 
 if [ "$APP_STACK" = "python" ]; then
@@ -110,6 +203,7 @@ if [ "$APP_STACK" = "svelte" ]; then
         exit 1
     fi
 
+    CURRENT_STEP="build"
     # BUILD_MODE permite controlar el --mode que recibe vite build
     # (ej. "staging" para que import.meta.env.MODE sea "staging").
     # Si no se define, vite build usa "production" por defecto.
@@ -124,22 +218,26 @@ fi
 
 # POST BUILD: ejecutar comandos adicionales si están definidos en el .conf
 if [ -n "$POST_BUILD" ]; then
+    CURRENT_STEP="post_build"
     echo "🔧 Ejecutando post-build..."
     eval "$POST_BUILD" || { echo "⚠️ Advertencia: post-build falló pero continuando"; }
     echo "✅ Post-build completado"
 fi
 
 # 3. REINICIAR PM2
+CURRENT_STEP="pm2_restart"
 echo "🔄 Step 3/4: Reiniciando proceso PM2..."
 pm2 restart "$PM2_NAME" || { echo "❌ Error reiniciando PM2: $PM2_NAME"; exit 1; }
 echo "✅ Proceso PM2 reiniciado"
 
 # 4. VALIDAR ESTADO
+CURRENT_STEP="validation"
 echo "🔄 Step 4/4: Validando estado..."
 pm2 status || { echo "⚠️ Advertencia: pm2 status falló"; }
 
+CURRENT_STEP="done"
 echo ""
-echo "="*60
+echo "============================================================"
 echo "✅ Despliegue de $PROJECT_NAME completado exitosamente"
 echo "⏰ Fin: $(date)"
-echo "="*60
+echo "============================================================"
