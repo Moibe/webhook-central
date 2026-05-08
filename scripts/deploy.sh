@@ -227,7 +227,15 @@ fi
 # 3. REINICIAR PM2
 CURRENT_STEP="pm2_restart"
 echo "🔄 Step 3/4: Reiniciando proceso PM2..."
-pm2 restart "$PM2_NAME" || { echo "❌ Error reiniciando PM2: $PM2_NAME"; exit 1; }
+# Si la app declara APP_ENV en su .conf (p. ej. "prod"), lo propagamos al
+# proceso de PM2 con --update-env para que la app cargue el .env.<APP_ENV>
+# correcto en cada despliegue.
+if [ -n "$APP_ENV" ]; then
+    echo "🌎 APP_ENV=$APP_ENV (propagando vía --update-env)"
+    APP_ENV="$APP_ENV" pm2 restart "$PM2_NAME" --update-env || { echo "❌ Error reiniciando PM2: $PM2_NAME"; exit 1; }
+else
+    pm2 restart "$PM2_NAME" || { echo "❌ Error reiniciando PM2: $PM2_NAME"; exit 1; }
+fi
 echo "✅ Proceso PM2 reiniciado"
 
 # 4. VALIDAR ESTADO
