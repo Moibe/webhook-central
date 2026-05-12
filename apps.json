@@ -81,5 +81,23 @@
     "pm2_name": "host-asistentes",
     "deploy_url": "/hooks/despliegue-host-asistentes",
     "app_url": "http://172.10.30.15:4176"
+  },
+  {
+    "id": "sandbox_mensajes",
+    "name": "Sandbox Mensajes",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "sandbox-mensajes",
+    "deploy_url": "/hooks/despliegue-sandbox_mensajes",
+    "app_url": "http://172.10.30.15:4177"
+  },
+  {
+    "id": "infra-timelapse",
+    "name": "Infra Timelapse",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "infra-timelapse",
+    "deploy_url": "/hooks/despliegue-infra-timelapse",
+    "app_url": "http://172.10.30.15:1111"
   }
 ]

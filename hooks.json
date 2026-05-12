@@ -106,5 +106,29 @@
         "name": "host-asistentes"
       }
     ]
+  },
+  {
+    "id": "despliegue-sandbox_mensajes",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de sandbox_mensajes iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "sandbox_mensajes"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-infra-timelapse",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de infra-timelapse iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "infra-timelapse"
+      }
+    ]
   }
 ]
