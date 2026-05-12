@@ -132,7 +132,11 @@ finalize() {
     ENDED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
     EXIT_CODE_VAL=$code
     if [ "$code" -eq 0 ]; then
-        STATUS="success"
+        if [ "$NO_CHANGES" = "1" ]; then
+            STATUS="no_changes"
+        else
+            STATUS="success"
+        fi
         FAILED_STEP=""
         ERROR_TAIL=""
     else
@@ -171,8 +175,23 @@ cd "$PROJECT_ROOT" || { echo "❌ No se pudo acceder a $PROJECT_ROOT"; exit 1; }
 CURRENT_STEP="git_pull"
 echo "🔄 Step 1/4: Haciendo git pull..."
 git checkout "$PROJECT_BRANCH" || { echo "❌ Error en git checkout"; exit 1; }
+
+# Detectar si hay cambios remotos antes de pull
+git fetch origin "$PROJECT_BRANCH" --quiet || { echo "❌ Error en git fetch"; exit 1; }
+LOCAL_SHA=$(git rev-parse HEAD)
+REMOTE_SHA=$(git rev-parse "origin/$PROJECT_BRANCH")
+if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
+    echo "ℹ️  Sin cambios remotos (HEAD ya en $LOCAL_SHA)."
+    echo "⏭️  Saltando build y restart de PM2."
+    NO_CHANGES=1
+    echo "============================================================"
+    echo "✓ Nada que desplegar para $PROJECT_NAME"
+    echo "============================================================"
+    exit 0
+fi
+
 git pull origin "$PROJECT_BRANCH" || { echo "❌ Error en git pull"; exit 1; }
-echo "✅ Código actualizado"
+echo "✅ Código actualizado ($LOCAL_SHA → $REMOTE_SHA)"
 
 # 2. ACTUALIZAR DEPENDENCIAS / BUILD
 CURRENT_STEP="dependencies"
