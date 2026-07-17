@@ -12,7 +12,7 @@
   },
   {
     "id": "document_ai",
-    "name": "Document AI",
+    "name": "Documentos IA",
     "stack": "python",
     "branch": "main",
     "pm2_name": "document-ai-api",
