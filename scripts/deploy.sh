@@ -235,11 +235,13 @@ if [ "$APP_STACK" = "svelte" ]; then
     echo "✅ Dependencias y build Svelte completados"
 fi
 
-# POST BUILD: ejecutar comandos adicionales si están definidos en el .conf
+# POST BUILD: ejecutar comandos adicionales si están definidos en el .conf. Fatal
+# como el resto de los pasos: si POST_BUILD falla (p.ej. una migración de DB), NO
+# se debe reiniciar pm2 con el build nuevo contra un esquema/estado desactualizado.
 if [ -n "$POST_BUILD" ]; then
     CURRENT_STEP="post_build"
     echo "🔧 Ejecutando post-build..."
-    eval "$POST_BUILD" || { echo "⚠️ Advertencia: post-build falló pero continuando"; }
+    eval "$POST_BUILD" || { echo "❌ Error en post-build"; exit 1; }
     echo "✅ Post-build completado"
 fi
 

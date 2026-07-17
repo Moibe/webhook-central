@@ -130,5 +130,17 @@
         "name": "infra-timelapse"
       }
     ]
+  },
+  {
+    "id": "despliegue-shape-up",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de shape_up iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "shape_up"
+      }
+    ]
   }
 ]

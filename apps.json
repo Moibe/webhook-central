@@ -99,5 +99,14 @@
     "pm2_name": "infra-timelapse",
     "deploy_url": "/hooks/despliegue-infra-timelapse",
     "app_url": "http://172.10.30.15:1111"
+  },
+  {
+    "id": "shape_up",
+    "name": "Shape Up Buzzword",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "shape-up",
+    "deploy_url": "/hooks/despliegue-shape-up",
+    "app_url": "http://172.10.30.15:3300"
   }
 ]
