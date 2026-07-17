@@ -7,7 +7,8 @@
     "pm2_name": "mide-chatbot-api",
     "deploy_url": "/hooks/despliegue-mide-chatbot",
     "app_url": "http://172.10.30.15:8080",
-    "public_url": "https://mide-chatbot-api.buzzword.com.mx"
+    "public_url": "https://mide-chatbot-api.buzzword.com.mx",
+    "repo_url": "https://github.com/Moibe/mide-chatbot"
   },
   {
     "id": "document_ai",
@@ -16,7 +17,8 @@
     "branch": "main",
     "pm2_name": "document-ai-api",
     "deploy_url": "/hooks/despliegue-document-ai",
-    "app_url": "http://172.10.30.15:8099"
+    "app_url": "http://172.10.30.15:8099",
+    "repo_url": "https://github.com/Moibe/document_ai"
   },
   {
     "id": "notificaciones_twilio",
@@ -25,7 +27,8 @@
     "branch": "main",
     "pm2_name": "notificaciones-twilio",
     "deploy_url": "/hooks/despliegue-notificaciones-twilio",
-    "app_url": "http://172.10.30.15:8082"
+    "app_url": "http://172.10.30.15:8082",
+    "repo_url": "https://github.com/Moibe/notificaciones_twilio"
   },
   {
     "id": "svelte_mide",
@@ -35,7 +38,8 @@
     "pm2_name": "svelte-mide",
     "deploy_url": "/hooks/despliegue-svelte-mide",
     "app_url": "http://172.10.30.15:4173",
-    "public_url": "https://mide-chatbot.buzzword.com.mx"
+    "public_url": "https://mide-chatbot.buzzword.com.mx",
+    "repo_url": "https://github.com/Moibe/svelte_mide"
   },
   {
     "id": "webhook-central-ui",
@@ -44,7 +48,8 @@
     "branch": "main",
     "pm2_name": "webhook-central-ui",
     "deploy_url": "/hooks/despliegue-webhook-central-ui",
-    "app_url": "http://172.10.30.15:4174"
+    "app_url": "http://172.10.30.15:4174",
+    "repo_url": "https://github.com/Moibe/webhook-central-ui"
   },
   {
     "id": "constructor-agente-rag",
@@ -53,7 +58,8 @@
     "branch": "dev",
     "pm2_name": "constructor-agente-rag",
     "deploy_url": "/hooks/despliegue-constructor-agente-rag",
-    "app_url": "http://172.10.30.15:8077"
+    "app_url": "http://172.10.30.15:8077",
+    "repo_url": "https://github.com/Moibe/constructor-agente-rag"
   },
   {
     "id": "buzzword-agentes-ui",
@@ -62,7 +68,8 @@
     "branch": "main",
     "pm2_name": "buzzword-agentes-ui",
     "deploy_url": "/hooks/despliegue-buzzword-agentes-ui",
-    "app_url": "http://172.10.30.15:4175"
+    "app_url": "http://172.10.30.15:4175",
+    "repo_url": "https://github.com/Moibe/buzzword-agentes-ui"
   },
   {
     "id": "conmutador",
@@ -71,7 +78,8 @@
     "branch": "main",
     "pm2_name": "conmutador",
     "deploy_url": "/hooks/despliegue-conmutador",
-    "app_url": "http://172.10.30.15:7860"
+    "app_url": "http://172.10.30.15:7860",
+    "repo_url": "https://github.com/Moibe/conmutador"
   },
   {
     "id": "host-asistentes",
@@ -80,7 +88,8 @@
     "branch": "main",
     "pm2_name": "host-asistentes",
     "deploy_url": "/hooks/despliegue-host-asistentes",
-    "app_url": "http://172.10.30.15:4176"
+    "app_url": "http://172.10.30.15:4176",
+    "repo_url": "https://github.com/Moibe/host-asistentes"
   },
   {
     "id": "sandbox_mensajes",
@@ -89,7 +98,8 @@
     "branch": "main",
     "pm2_name": "sandbox-mensajes",
     "deploy_url": "/hooks/despliegue-sandbox_mensajes",
-    "app_url": "http://172.10.30.15:4177"
+    "app_url": "http://172.10.30.15:4177",
+    "repo_url": "https://github.com/Moibe/sandbox_mensajes"
   },
   {
     "id": "infra-timelapse",
@@ -98,6 +108,7 @@
     "branch": "main",
     "pm2_name": "infra-timelapse",
     "deploy_url": "/hooks/despliegue-infra-timelapse",
+<<<<<<< Updated upstream
     "app_url": "http://172.10.30.15:1111"
   },
   {
@@ -108,5 +119,9 @@
     "pm2_name": "shape-up",
     "deploy_url": "/hooks/despliegue-shape-up",
     "app_url": "http://172.10.30.15:3300"
+=======
+    "app_url": "http://172.10.30.15:1111",
+    "repo_url": "https://github.com/Moibe/infra-timelapse"
+>>>>>>> Stashed changes
   }
 ]
