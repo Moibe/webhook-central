@@ -118,6 +118,7 @@
     "branch": "main",
     "pm2_name": "shape-up",
     "deploy_url": "/hooks/despliegue-shape-up",
-    "app_url": "http://172.10.30.15:3300"
+    "app_url": "http://172.10.30.15:3300",
+    "repo_url": "https://github.com/Moibe/shape_up"
   }
 ]
