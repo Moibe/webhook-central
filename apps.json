@@ -72,16 +72,6 @@
     "repo_url": "https://github.com/Moibe/buzzword-agentes-ui"
   },
   {
-    "id": "conmutador",
-    "name": "Conmutador",
-    "stack": "python",
-    "branch": "main",
-    "pm2_name": "conmutador",
-    "deploy_url": "/hooks/despliegue-conmutador",
-    "app_url": "http://172.10.30.15:7860",
-    "repo_url": "https://github.com/Moibe/conmutador"
-  },
-  {
     "id": "host-asistentes",
     "name": "Host Asistentes",
     "stack": "svelte",
