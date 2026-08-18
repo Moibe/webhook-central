@@ -26,9 +26,9 @@ source "$CONFIG_FILE"
 # Stack de la app (python por defecto para mantener compatibilidad)
 APP_STACK="${APP_STACK:-python}"
 
-if [ "$APP_STACK" != "python" ] && [ "$APP_STACK" != "svelte" ]; then
+if [ "$APP_STACK" != "python" ] && [ "$APP_STACK" != "svelte" ] && [ "$APP_STACK" != "none" ]; then
     echo "❌ Error: APP_STACK no soportado: $APP_STACK"
-    echo "Valores permitidos: python, svelte"
+    echo "Valores permitidos: python, svelte, none"
     exit 1
 fi
 
@@ -196,6 +196,10 @@ echo "✅ Código actualizado ($LOCAL_SHA → $REMOTE_SHA)"
 # 2. ACTUALIZAR DEPENDENCIAS / BUILD
 CURRENT_STEP="dependencies"
 echo "🔄 Step 2/4: Dependencias y build para $APP_STACK..."
+
+if [ "$APP_STACK" = "none" ]; then
+    echo "⏭️  Stack 'none': sin dependencias ni build"
+fi
 
 if [ "$APP_STACK" = "python" ]; then
     if [ -f "requirements.txt" ]; then

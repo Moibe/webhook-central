@@ -154,5 +154,17 @@
         "name": "nexus_poc_svelte"
       }
     ]
+  },
+  {
+    "id": "despliegue-webhook-central",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de webhook-central iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "webhook-central"
+      }
+    ]
   }
 ]
