@@ -130,5 +130,17 @@
         "name": "shape_up"
       }
     ]
+  },
+  {
+    "id": "despliegue-nexus_back",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_back iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_back"
+      }
+    ]
   }
 ]
