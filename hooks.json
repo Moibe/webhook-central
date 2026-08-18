@@ -142,5 +142,17 @@
         "name": "nexus_back"
       }
     ]
+  },
+  {
+    "id": "despliegue-nexus_poc_svelte",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_poc_svelte iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_poc_svelte"
+      }
+    ]
   }
 ]

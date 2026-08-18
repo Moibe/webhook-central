@@ -120,5 +120,15 @@
     "deploy_url": "/hooks/despliegue-nexus_back",
     "app_url": "http://172.10.30.15:8083",
     "repo_url": "https://github.com/Moibe/nexus_back"
+  },
+  {
+    "id": "nexus_poc_svelte",
+    "name": "Nexus Front",
+    "stack": "svelte",
+    "branch": "main",
+    "pm2_name": "nexus-front",
+    "deploy_url": "/hooks/despliegue-nexus_poc_svelte",
+    "app_url": "http://172.10.30.15:3400",
+    "repo_url": "https://github.com/Moibe/nexus_poc_svelte"
   }
 ]
