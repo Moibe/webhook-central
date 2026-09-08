@@ -1,5 +1,17 @@
 [
   {
+    "id": "pm2-status",
+    "http-methods": ["GET"],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/pm2-status.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      { "name": "Content-Type", "value": "application/json" },
+      { "name": "Access-Control-Allow-Origin", "value": "*" }
+    ]
+  },
+  {
     "id": "despliegue-mide-chatbot",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
