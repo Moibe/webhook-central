@@ -106,9 +106,22 @@
     "name": "Shape Up Buzzword",
     "stack": "svelte",
     "branch": "main",
+    "env": "prod",
     "pm2_name": "shape-up",
     "deploy_url": "/hooks/despliegue-shape-up",
+    "merge_url": "/hooks/promover-shape-up",
     "app_url": "http://172.10.30.15:3300",
+    "repo_url": "https://github.com/Moibe/shape_up"
+  },
+  {
+    "id": "shape_up_dev",
+    "name": "Shape Up Buzzword (Dev)",
+    "stack": "svelte",
+    "branch": "dev",
+    "env": "dev",
+    "pm2_name": "shape-up-dev",
+    "deploy_url": "/hooks/despliegue-shape-up-dev",
+    "app_url": "http://172.10.30.15:3301",
     "repo_url": "https://github.com/Moibe/shape_up"
   },
   {
@@ -139,5 +152,15 @@
     "pm2_name": "webhook-listener",
     "deploy_url": "/hooks/despliegue-webhook-central",
     "repo_url": "https://github.com/Moibe/webhook-central"
+  },
+  {
+    "id": "santander_ia",
+    "name": "Santander IA",
+    "stack": "python",
+    "branch": "main",
+    "pm2_name": "santander_ia",
+    "deploy_url": "/hooks/despliegue-santander_ia",
+    "app_url": "http://172.10.30.15:8100",
+    "repo_url": "https://github.com/Moibe/santander_ia"
   }
 ]

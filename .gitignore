@@ -7,6 +7,9 @@ logs/
 .venv
 venv/
 
+# Secretos
+.github_token
+
 # IDE
 .vscode/
 .idea/

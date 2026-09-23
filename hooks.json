@@ -1,14 +1,22 @@
 [
   {
     "id": "pm2-status",
-    "http-methods": ["GET"],
+    "http-methods": [
+      "GET"
+    ],
     "execute-command": "/home/mbriseno/webhook-central/scripts/pm2-status.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
     "include-command-output-in-response": true,
     "include-command-output-in-response-on-error": true,
     "response-headers": [
-      { "name": "Content-Type", "value": "application/json" },
-      { "name": "Access-Control-Allow-Origin", "value": "*" }
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
     ]
   },
   {
@@ -144,6 +152,44 @@
     ]
   },
   {
+    "id": "promover-shape-up",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "shape_up"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-shape-up-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de shape_up (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "shape_up_dev"
+      }
+    ]
+  },
+  {
     "id": "despliegue-nexus_back",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
@@ -176,6 +222,18 @@
       {
         "source": "string",
         "name": "webhook-central"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-santander_ia",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de santander_ia iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "santander_ia"
       }
     ]
   }
