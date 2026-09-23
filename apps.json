@@ -3,9 +3,11 @@
     "id": "mide-chatbot",
     "name": "Mide Chatbot",
     "stack": "python",
-    "branch": "dev",
+    "branch": "main",
+    "env": "prod",
     "pm2_name": "mide-chatbot-api",
     "deploy_url": "/hooks/despliegue-mide-chatbot",
+    "merge_url": "/hooks/promover-mide-chatbot",
     "app_url": "http://172.10.30.15:8080",
     "public_url": "https://mide-chatbot-api.buzzword.com.mx",
     "repo_url": "https://github.com/Moibe/mide-chatbot"
