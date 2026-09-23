@@ -236,5 +236,43 @@
         "name": "santander_ia"
       }
     ]
+  },
+  {
+    "id": "despliegue-santander_ia_dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de santander_ia (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "santander_ia_dev"
+      }
+    ]
+  },
+  {
+    "id": "promover-santander_ia",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "santander_ia"
+      }
+    ]
   }
 ]

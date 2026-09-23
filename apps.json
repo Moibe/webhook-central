@@ -158,9 +158,22 @@
     "name": "Santander IA",
     "stack": "python",
     "branch": "main",
+    "env": "prod",
     "pm2_name": "santander_ia",
     "deploy_url": "/hooks/despliegue-santander_ia",
+    "merge_url": "/hooks/promover-santander_ia",
     "app_url": "http://172.10.30.15:8100",
+    "repo_url": "https://github.com/Moibe/santander_ia"
+  },
+  {
+    "id": "santander_ia_dev",
+    "name": "Santander IA (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "env": "dev",
+    "pm2_name": "santander_ia_dev",
+    "deploy_url": "/hooks/despliegue-santander_ia_dev",
+    "app_url": "http://172.10.30.15:8101",
     "repo_url": "https://github.com/Moibe/santander_ia"
   }
 ]
