@@ -174,10 +174,14 @@ cd "$PROJECT_ROOT" || { echo "❌ No se pudo acceder a $PROJECT_ROOT"; exit 1; }
 # 1. ACTUALIZAR CÓDIGO
 CURRENT_STEP="git_pull"
 echo "🔄 Step 1/4: Haciendo git pull..."
+# El fetch va ANTES del checkout: si la rama todavía no existe en este clon
+# (p.ej. al repuntar una instancia existente hacia otra rama), sin fetch previo
+# el checkout truena con "pathspec did not match" y el deploy muere reportando
+# git_pull, que despista porque el pull ni siquiera llegó a correr.
+git fetch origin "$PROJECT_BRANCH" --quiet || { echo "❌ Error en git fetch"; exit 1; }
 git checkout "$PROJECT_BRANCH" || { echo "❌ Error en git checkout"; exit 1; }
 
 # Detectar si hay cambios remotos antes de pull
-git fetch origin "$PROJECT_BRANCH" --quiet || { echo "❌ Error en git fetch"; exit 1; }
 LOCAL_SHA=$(git rev-parse HEAD)
 REMOTE_SHA=$(git rev-parse "origin/$PROJECT_BRANCH")
 if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
