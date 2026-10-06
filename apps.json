@@ -203,5 +203,16 @@
     "deploy_url": "/hooks/despliegue-santander_ia_dev",
     "app_url": "http://172.10.30.15:8101",
     "repo_url": "https://github.com/Moibe/santander_ia"
+  },
+  {
+    "id": "inventario-ti",
+    "name": "Inventario TI",
+    "stack": "svelte",
+    "branch": "main",
+    "env": "prod",
+    "pm2_name": "inventario-ti",
+    "deploy_url": "/hooks/despliegue-inventario-ti",
+    "app_url": "http://172.10.30.15:1979",
+    "repo_url": "https://github.com/Moibe/inventario-ti"
   }
 ]

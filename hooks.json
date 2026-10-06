@@ -376,5 +376,17 @@
         "name": "nexus_poc_svelte_dev"
       }
     ]
+  },
+  {
+    "id": "despliegue-inventario-ti",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de inventario-ti iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "inventario-ti"
+      }
+    ]
   }
 ]
