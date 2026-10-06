@@ -300,5 +300,57 @@
         "name": "mide-chatbot"
       }
     ]
+  },
+  {
+    "id": "promover-nexus_back",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_back"
+      }
+    ]
+  },
+  {
+    "id": "promover-nexus_poc_svelte",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_poc_svelte"
+      }
+    ]
   }
 ]
