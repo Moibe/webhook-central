@@ -352,5 +352,29 @@
         "name": "nexus_poc_svelte"
       }
     ]
+  },
+  {
+    "id": "despliegue-nexus_back_dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_back (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_back_dev"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-nexus_poc_svelte_dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_poc_svelte (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_poc_svelte_dev"
+      }
+    ]
   }
 ]

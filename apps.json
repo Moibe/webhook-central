@@ -151,6 +151,28 @@
     "repo_url": "https://github.com/Moibe/nexus_poc_svelte"
   },
   {
+    "id": "nexus_back_dev",
+    "name": "Nexus Back (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "env": "dev",
+    "pm2_name": "nexus-back-api-dev",
+    "deploy_url": "/hooks/despliegue-nexus_back_dev",
+    "app_url": "http://172.10.30.15:8084",
+    "repo_url": "https://github.com/Moibe/nexus_back"
+  },
+  {
+    "id": "nexus_poc_svelte_dev",
+    "name": "Nexus Front (Dev)",
+    "stack": "svelte",
+    "branch": "dev",
+    "env": "dev",
+    "pm2_name": "nexus-front-dev",
+    "deploy_url": "/hooks/despliegue-nexus_poc_svelte_dev",
+    "app_url": "http://172.10.30.15:3401",
+    "repo_url": "https://github.com/Moibe/nexus_poc_svelte"
+  },
+  {
     "id": "webhook-central",
     "name": "Webhook Central",
     "stack": "none",
