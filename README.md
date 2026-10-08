@@ -147,5 +147,3 @@ pm2 restart webhook-listener
         ├── document_ai.conf
         └── notificaciones_twilio.conf
 ```
-
-<!-- prueba de auto-despliegue 2026-10-07 -->
