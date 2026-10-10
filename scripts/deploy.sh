@@ -256,6 +256,17 @@ fi
 # 3. REINICIAR PM2
 CURRENT_STEP="pm2_restart"
 echo "🔄 Step 3/4: Reiniciando proceso PM2..."
+# Auto-despliegue: si el proceso a reiniciar es el propio listener que nos
+# ejecuta, el restart mataría a este script antes de loguear "finished" (el
+# dashboard lo mostraría como fallido). Lo lanzamos desacoplado (setsid) con
+# un pequeño retraso y terminamos limpio antes de que ocurra.
+if [ "$PM2_NAME" = "webhook-listener" ]; then
+    echo "♻️  Auto-despliegue: reinicio de $PM2_NAME diferido y desacoplado"
+    setsid nohup bash -c 'sleep 2; pm2 restart "$1" --update-env' _ "$PM2_NAME" >/dev/null 2>&1 < /dev/null &
+    CURRENT_STEP="done"
+    echo "✅ Despliegue de $PROJECT_NAME completado (restart en 2s)"
+    exit 0
+fi
 # Si la app declara APP_ENV en su .conf (p. ej. "prod"), lo propagamos al
 # proceso de PM2 con --update-env para que la app cargue el .env.<APP_ENV>
 # correcto en cada despliegue.
