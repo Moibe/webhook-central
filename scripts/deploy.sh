@@ -26,14 +26,19 @@ source "$CONFIG_FILE"
 # Stack de la app (python por defecto para mantener compatibilidad)
 APP_STACK="${APP_STACK:-python}"
 
-if [ "$APP_STACK" != "python" ] && [ "$APP_STACK" != "svelte" ] && [ "$APP_STACK" != "none" ]; then
+if [ "$APP_STACK" != "python" ] && [ "$APP_STACK" != "svelte" ] && [ "$APP_STACK" != "none" ] && [ "$APP_STACK" != "docker" ]; then
     echo "❌ Error: APP_STACK no soportado: $APP_STACK"
-    echo "Valores permitidos: python, svelte, none"
+    echo "Valores permitidos: python, svelte, none, docker"
     exit 1
 fi
 
 # Validar variables requeridas
-for var in PROJECT_ROOT PROJECT_BRANCH PM2_NAME; do
+# docker no usa pm2: el contenedor lo gestiona docker compose (restart: always)
+REQUIRED_VARS="PROJECT_ROOT PROJECT_BRANCH PM2_NAME"
+if [ "$APP_STACK" = "docker" ]; then
+    REQUIRED_VARS="PROJECT_ROOT PROJECT_BRANCH"
+fi
+for var in $REQUIRED_VARS; do
     if [ -z "${!var}" ]; then
         echo "❌ Error: Variable $var no definida en $CONFIG_FILE"
         exit 1
@@ -205,6 +210,10 @@ if [ "$APP_STACK" = "none" ]; then
     echo "⏭️  Stack 'none': sin dependencias ni build"
 fi
 
+if [ "$APP_STACK" = "docker" ]; then
+    echo "⏭️  Stack 'docker': las dependencias se instalan al reconstruir la imagen"
+fi
+
 if [ "$APP_STACK" = "python" ]; then
     if [ -f "requirements.txt" ]; then
         source "$VENV_PATH/bin/activate"
@@ -251,6 +260,25 @@ if [ -n "$POST_BUILD" ]; then
     echo "🔧 Ejecutando post-build..."
     eval "$POST_BUILD" || { echo "❌ Error en post-build"; exit 1; }
     echo "✅ Post-build completado"
+fi
+
+# 3. DOCKER: reconstruir y levantar el contenedor (sin pm2).
+# --wait espera a que el healthcheck del compose quede healthy; si no lo logra
+# en el timeout, el deploy falla y queda registrado como tal.
+if [ "$APP_STACK" = "docker" ]; then
+    CURRENT_STEP="docker_up"
+    echo "🔄 Step 3/4: Reconstruyendo y levantando contenedor (docker compose)..."
+    docker compose up -d --build --wait --wait-timeout 300 || { echo "❌ Error en docker compose up"; exit 1; }
+    CURRENT_STEP="validation"
+    echo "🔄 Step 4/4: Validando estado..."
+    docker compose ps || { echo "⚠️ Advertencia: docker compose ps falló"; }
+    CURRENT_STEP="done"
+    echo ""
+    echo "============================================================"
+    echo "✅ Despliegue de $PROJECT_NAME completado exitosamente"
+    echo "⏰ Fin: $(date)"
+    echo "============================================================"
+    exit 0
 fi
 
 # 3. REINICIAR PM2

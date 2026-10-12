@@ -400,5 +400,17 @@
         "name": "nexus_monitor"
       }
     ]
+  },
+  {
+    "id": "despliegue-FaceAndVoiceReco",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de FaceAndVoiceReco iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "FaceAndVoiceReco"
+      }
+    ]
   }
 ]
