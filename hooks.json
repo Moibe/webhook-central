@@ -446,5 +446,17 @@
         "value": "*"
       }
     ]
+  },
+  {
+    "id": "despliegue-OCR-INE-Santander",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de OCR-INE-Santander iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "OCR-INE-Santander"
+      }
+    ]
   }
 ]
