@@ -412,5 +412,39 @@
         "name": "FaceAndVoiceReco"
       }
     ]
+  },
+  {
+    "id": "power",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/power.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "pass-arguments-to-command": [
+      {
+        "source": "url",
+        "name": "action"
+      },
+      {
+        "source": "url",
+        "name": "id"
+      },
+      {
+        "source": "url",
+        "name": "token"
+      }
+    ],
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ]
   }
 ]
