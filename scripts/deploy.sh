@@ -189,7 +189,12 @@ git checkout "$PROJECT_BRANCH" || { echo "❌ Error en git checkout"; exit 1; }
 # Detectar si hay cambios remotos antes de pull
 LOCAL_SHA=$(git rev-parse HEAD)
 REMOTE_SHA=$(git rev-parse "origin/$PROJECT_BRANCH")
-if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
+# Docker: siempre se reconstruye (docker compose up -d --build), aunque no haya
+# commits nuevos, porque un cambio de .env/compose también necesita aplicarse.
+# Si no cambió nada, la caché de Docker lo hace en segundos.
+if [ "$LOCAL_SHA" = "$REMOTE_SHA" ] && [ "$APP_STACK" = "docker" ]; then
+    echo "ℹ️  Sin cambios remotos (HEAD ya en $LOCAL_SHA); se reconstruye igual (stack docker)."
+elif [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
     echo "ℹ️  Sin cambios remotos (HEAD ya en $LOCAL_SHA)."
     echo "⏭️  Saltando build y restart de PM2."
     NO_CHANGES=1
@@ -199,8 +204,10 @@ if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
     exit 0
 fi
 
-git pull origin "$PROJECT_BRANCH" || { echo "❌ Error en git pull"; exit 1; }
-echo "✅ Código actualizado ($LOCAL_SHA → $REMOTE_SHA)"
+if [ "$LOCAL_SHA" != "$REMOTE_SHA" ]; then
+    git pull origin "$PROJECT_BRANCH" || { echo "❌ Error en git pull"; exit 1; }
+    echo "✅ Código actualizado ($LOCAL_SHA → $REMOTE_SHA)"
+fi
 
 # 2. ACTUALIZAR DEPENDENCIAS / BUILD
 CURRENT_STEP="dependencies"

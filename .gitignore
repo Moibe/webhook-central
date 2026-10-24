@@ -23,3 +23,6 @@ Thumbs.db
 
 # Token del hook power
 .power_token
+
+# Respaldos manuales
+*.bak.*

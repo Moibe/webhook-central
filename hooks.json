@@ -458,5 +458,17 @@
         "name": "OCR-INE-Santander"
       }
     ]
+  },
+  {
+    "id": "despliegue-Chat-Ortografia",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de Chat-Ortografia iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "Chat-Ortografia"
+      }
+    ]
   }
 ]
