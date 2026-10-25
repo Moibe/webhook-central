@@ -470,5 +470,81 @@
         "name": "Chat-Ortografia"
       }
     ]
+  },
+  {
+    "id": "despliegue-nexus_back_staging",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_back (staging) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_back_staging"
+      }
+    ]
+  },
+  {
+    "id": "promover-nexus_back_staging",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_back_staging"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-nexus_poc_svelte_staging",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de nexus_poc_svelte (staging) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_poc_svelte_staging"
+      }
+    ]
+  },
+  {
+    "id": "promover-nexus_poc_svelte_staging",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "nexus_poc_svelte_staging"
+      }
+    ]
   }
 ]
