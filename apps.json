@@ -204,6 +204,7 @@
     "pm2_name": "nexus-back-api-staging",
     "deploy_url": "/hooks/despliegue-nexus_back_staging",
     "app_url": "http://172.10.30.15:8085",
+    "public_url": "https://staging-biblioratum-api.buzzword.com.mx",
     "docs_path": "/docs-interno",
     "repo_url": "https://github.com/Moibe/nexus_back",
     "merge_url": "/hooks/promover-nexus_back_staging"
@@ -218,6 +219,7 @@
     "pm2_name": "nexus-front-staging",
     "deploy_url": "/hooks/despliegue-nexus_poc_svelte_staging",
     "app_url": "http://172.10.30.15:3402",
+    "public_url": "https://staging-biblioratum.buzzword.com.mx",
     "repo_url": "https://github.com/Moibe/nexus_poc_svelte",
     "merge_url": "/hooks/promover-nexus_poc_svelte_staging"
   },
