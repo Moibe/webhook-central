@@ -5,7 +5,7 @@
     "stack": "python",
     "branch": "main",
     "owner": "Moibe",
-    "env": "prod",
+    "env": "dev",
     "pm2_name": "mide-chatbot-api",
     "deploy_url": "/hooks/despliegue-mide-chatbot",
     "merge_url": "/hooks/promover-mide-chatbot",
