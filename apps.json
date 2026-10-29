@@ -149,7 +149,7 @@
     "deploy_url": "/hooks/despliegue-nexus_back",
     "merge_url": "/hooks/promover-nexus_back",
     "app_url": "http://172.10.30.15:8083",
-    "public_url": "https://nexus-doc-api.buzzword.com.mx",
+    "public_url": "https://biblioratum-api.buzzword.com.mx",
     "docs_path": "/docs-interno",
     "repo_url": "https://github.com/Moibe/nexus_back"
   },
@@ -164,7 +164,7 @@
     "deploy_url": "/hooks/despliegue-nexus_poc_svelte",
     "merge_url": "/hooks/promover-nexus_poc_svelte",
     "app_url": "http://172.10.30.15:3400",
-    "public_url": "https://nexus-doc.buzzword.com.mx",
+    "public_url": "https://biblioratum.buzzword.com.mx",
     "repo_url": "https://github.com/Moibe/nexus_poc_svelte"
   },
   {
@@ -177,7 +177,7 @@
     "pm2_name": "nexus-back-api-dev",
     "deploy_url": "/hooks/despliegue-nexus_back_dev",
     "app_url": "http://172.10.30.15:8084",
-    "public_url": "https://dev-nexus-doc-api.buzzword.com.mx",
+    "public_url": "https://dev-biblioratum-api.buzzword.com.mx",
     "docs_path": "/docs-interno",
     "repo_url": "https://github.com/Moibe/nexus_back"
   },
@@ -191,7 +191,7 @@
     "pm2_name": "nexus-front-dev",
     "deploy_url": "/hooks/despliegue-nexus_poc_svelte_dev",
     "app_url": "http://172.10.30.15:3401",
-    "public_url": "https://dev-nexus-doc.buzzword.com.mx",
+    "public_url": "https://dev-biblioratum.buzzword.com.mx",
     "repo_url": "https://github.com/Moibe/nexus_poc_svelte"
   },
   {
