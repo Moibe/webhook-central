@@ -140,7 +140,7 @@
   },
   {
     "id": "nexus_back",
-    "name": "Nexus Back",
+    "name": "Biblioratum Back",
     "stack": "python",
     "branch": "main",
     "owner": "Moibe",
@@ -155,7 +155,7 @@
   },
   {
     "id": "nexus_poc_svelte",
-    "name": "Nexus Front",
+    "name": "Biblioratum Front",
     "stack": "svelte",
     "branch": "main",
     "owner": "Moibe",
@@ -169,7 +169,7 @@
   },
   {
     "id": "nexus_back_dev",
-    "name": "Nexus Back (Dev)",
+    "name": "Biblioratum Back (Dev)",
     "stack": "python",
     "branch": "dev",
     "owner": "Moibe",
@@ -183,7 +183,7 @@
   },
   {
     "id": "nexus_poc_svelte_dev",
-    "name": "Nexus Front (Dev)",
+    "name": "Biblioratum Front (Dev)",
     "stack": "svelte",
     "branch": "dev",
     "owner": "Moibe",
@@ -196,7 +196,7 @@
   },
   {
     "id": "nexus_back_staging",
-    "name": "Nexus Back (Staging)",
+    "name": "Biblioratum Back (Staging)",
     "stack": "python",
     "branch": "staging",
     "owner": "Moibe",
@@ -211,7 +211,7 @@
   },
   {
     "id": "nexus_poc_svelte_staging",
-    "name": "Nexus Front (Staging)",
+    "name": "Biblioratum Front (Staging)",
     "stack": "svelte",
     "branch": "staging",
     "owner": "Moibe",
@@ -272,7 +272,7 @@
   },
   {
     "id": "nexus_monitor",
-    "name": "Nexus Monitor",
+    "name": "Biblioratum Monitor",
     "stack": "svelte",
     "branch": "dev",
     "owner": "Moibe",
