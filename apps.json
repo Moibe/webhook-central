@@ -62,11 +62,25 @@
     "id": "constructor-agente-rag",
     "name": "Constructor Agente RAG",
     "stack": "python",
-    "branch": "dev",
+    "branch": "main",
     "owner": "Moibe",
+    "env": "prod",
     "pm2_name": "constructor-agente-rag",
     "deploy_url": "/hooks/despliegue-constructor-agente-rag",
+    "merge_url": "/hooks/promover-constructor-agente-rag",
     "app_url": "http://172.10.30.15:8077",
+    "repo_url": "https://github.com/Moibe/constructor-agente-rag"
+  },
+  {
+    "id": "constructor-agente-rag-dev",
+    "name": "Constructor Agente RAG (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "constructor-agente-rag-dev",
+    "deploy_url": "/hooks/despliegue-constructor-agente-rag-dev",
+    "app_url": "http://172.10.30.15:8078",
     "repo_url": "https://github.com/Moibe/constructor-agente-rag"
   },
   {
@@ -75,9 +89,23 @@
     "stack": "svelte",
     "branch": "main",
     "owner": "Moibe",
+    "env": "prod",
     "pm2_name": "buzzword-agentes-ui",
     "deploy_url": "/hooks/despliegue-buzzword-agentes-ui",
+    "merge_url": "/hooks/promover-buzzword-agentes-ui",
     "app_url": "http://172.10.30.15:4175",
+    "repo_url": "https://github.com/Moibe/buzzword-agentes-ui"
+  },
+  {
+    "id": "buzzword-agentes-ui-dev",
+    "name": "Buzzword Agentes UI (Dev)",
+    "stack": "svelte",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "buzzword-agentes-ui-dev",
+    "deploy_url": "/hooks/despliegue-buzzword-agentes-ui-dev",
+    "app_url": "http://172.10.30.15:4178",
     "repo_url": "https://github.com/Moibe/buzzword-agentes-ui"
   },
   {
@@ -86,9 +114,23 @@
     "stack": "svelte",
     "branch": "main",
     "owner": "Moibe",
+    "env": "prod",
     "pm2_name": "host-asistentes",
     "deploy_url": "/hooks/despliegue-host-asistentes",
+    "merge_url": "/hooks/promover-host-asistentes",
     "app_url": "http://172.10.30.15:4176",
+    "repo_url": "https://github.com/Moibe/host-asistentes"
+  },
+  {
+    "id": "host-asistentes-dev",
+    "name": "Host Asistentes (Dev)",
+    "stack": "svelte",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "host-asistentes-dev",
+    "deploy_url": "/hooks/despliegue-host-asistentes-dev",
+    "app_url": "http://172.10.30.15:4179",
     "repo_url": "https://github.com/Moibe/host-asistentes"
   },
   {

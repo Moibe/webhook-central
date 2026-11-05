@@ -92,6 +92,44 @@
     ]
   },
   {
+    "id": "despliegue-constructor-agente-rag-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de constructor-agente-rag (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "constructor-agente-rag-dev"
+      }
+    ]
+  },
+  {
+    "id": "promover-constructor-agente-rag",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "constructor-agente-rag"
+      }
+    ]
+  },
+  {
     "id": "despliegue-buzzword-agentes-ui",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
@@ -104,10 +142,86 @@
     ]
   },
   {
+    "id": "despliegue-buzzword-agentes-ui-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de buzzword-agentes-ui (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "buzzword-agentes-ui-dev"
+      }
+    ]
+  },
+  {
+    "id": "promover-buzzword-agentes-ui",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "buzzword-agentes-ui"
+      }
+    ]
+  },
+  {
     "id": "despliegue-host-asistentes",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
     "response-message": "✅ Despliegue de host-asistentes iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "host-asistentes"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-host-asistentes-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de host-asistentes (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "host-asistentes-dev"
+      }
+    ]
+  },
+  {
+    "id": "promover-host-asistentes",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
     "pass-arguments-to-command": [
       {
         "source": "string",
