@@ -80,6 +80,8 @@
     "env": "dev",
     "pm2_name": "constructor-agente-rag-dev",
     "deploy_url": "/hooks/despliegue-constructor-agente-rag-dev",
+    "refresh_url": "/hooks/refrescar-constructor-agente-rag-dev",
+    "refresh_from": "constructor-agente-rag",
     "app_url": "http://172.10.30.15:8078",
     "repo_url": "https://github.com/Moibe/constructor-agente-rag"
   },

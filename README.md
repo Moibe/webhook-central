@@ -111,6 +111,34 @@ rm /home/mbriseno/code/mide-chatbot/script_despliegue.sh
    pm2 restart webhook-listener
    ```
 
+## Refrescar dev con los datos de prod
+
+`scripts/refresh.sh <id-dev> <token>` copia los datos de una app de prod sobre los
+de su instancia dev (en la UI: botón de base de datos en la fila dev, solo
+superadmin, confirmando con el id). Lo usa una app dev que declare en su `.conf`:
+
+```bash
+REFRESH_FROM="/home/mbriseno/code/<repo-prod>"          # checkout de prod (solo se lee)
+REFRESH_DATA="AGENTES_DB_PATH:agentes.db LOG_DB_PATH:logs.db CHROMA_PATH:chroma DOCS_FOLDER:./data/documentos"
+```
+
+y en `apps.json` `"env": "dev"`, `"refresh_url": "/hooks/refrescar-<id-dev>"` y
+`"refresh_from": "<id-prod>"`, más su hook en `hooks.json` (POST, argumentos
+`<id-dev>` fijo y `token` de la URL; el token es el mismo `.power_token`).
+
+- Cada ruta se resuelve como la lee la app: la variable del `.env` de ese
+  checkout o el default, relativa a su carpeta. Aborta si una ruta de dev cae
+  en la misma de prod o fuera de la carpeta de dev.
+- Las SQLite se copian con la API de backup (copia consistente aunque prod esté
+  escribiendo); las carpetas con `cp` y sus SQLite internas (Chroma) después.
+- Detiene la app dev, mueve lo suyo a `~/respaldos-refresco/<id-dev>/<fecha>/dev-anterior/`
+  (se guardan las 3 corridas más recientes), pone lo de prod y la vuelve a
+  levantar. Si falla a medio cambio, regresa lo de dev.
+- Corre desacoplado: el hook responde al instante y el avance queda en
+  `logs/deploys.jsonl` con `"kind": "refresh"` y en `logs/<id-dev>/<corrida>.log`.
+- No lo uses mientras subes documentos en prod: Chroma podría quedar a medias
+  en la copia de dev (se arregla refrescando otra vez).
+
 ## Verificar que funciona
 
 ```bash
