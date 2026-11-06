@@ -134,6 +134,40 @@
     ]
   },
   {
+    "id": "deshacer-refresco-constructor-agente-rag-dev",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/refresh.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "constructor-agente-rag-dev"
+      },
+      {
+        "source": "url",
+        "name": "token"
+      },
+      {
+        "source": "string",
+        "name": "deshacer"
+      }
+    ]
+  },
+  {
     "id": "promover-constructor-agente-rag",
     "http-methods": [
       "POST"

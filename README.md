@@ -139,6 +139,18 @@ y en `apps.json` `"env": "dev"`, `"refresh_url": "/hooks/refrescar-<id-dev>"` y
 - No lo uses mientras subes documentos en prod: Chroma podría quedar a medias
   en la copia de dev (se arregla refrescando otra vez).
 
+### Deshacer el último refresco
+
+`scripts/refresh.sh <id-dev> <token> deshacer` (en la UI: botón ↩ junto al de
+refrescar, aparece cuando el último refresco de esa app cambió datos). Toma la
+corrida más reciente de `~/respaldos-refresco/<id-dev>/`, aparta lo que dev tiene
+ahora en `<fecha>/al-deshacer/` y regresa `<fecha>/dev-anterior/` a su lugar, con
+la app detenida y verificando que vuelva a quedar en línea. Nada se borra; cada
+refresco se deshace una sola vez (deja `deshecho.json`). Si falla a medio camino,
+dev queda como estaba. Evento con `"kind": "refresh-undo"`; hook
+`deshacer-refresco-<id-dev>` (los mismos argumentos que el de refrescar más el
+string `deshacer`) y `"refresh_undo_url"` en `apps.json`.
+
 ## Verificar que funciona
 
 ```bash

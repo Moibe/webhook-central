@@ -16,8 +16,14 @@ que refresh.sh manda al log de la corrida):
       algo falla a medias, regresa lo que alcanzó a mover.
   podar --base DIR --conservar N
       Borra las corridas de respaldo viejas y deja las N más recientes.
+  deshacer --dev RAIZ --datos "VAR:default ..." --base DIR [--solo-revisar]
+      Deshace el ÚLTIMO refresco (la corrida más reciente en DIR): lo que dev
+      tiene ahora se mueve a esa corrida en al-deshacer/ y lo de dev-anterior/
+      regresa a su lugar. Sólo una vez por corrida (deja deshecho.json). Con
+      --solo-revisar nada más dice si se puede.
 """
 import argparse
+import datetime
 import json
 import math
 import os
@@ -281,6 +287,10 @@ def cambiar(args):
                 if hecho[0] == 'puesto':
                     quitar(hecho[1])
                 else:
+                    # Si un move de prod → dev falló a medias, dejó una copia parcial
+                    # aquí; sin quitarla, una carpeta se movería DENTRO de ella.
+                    if os.path.lexists(hecho[1]):
+                        quitar(hecho[1])
                     os.makedirs(os.path.dirname(hecho[1]), exist_ok=True)
                     shutil.move(hecho[2], hecho[1])
             except Exception as e2:
@@ -308,6 +318,132 @@ def podar(args):
     return {'ok': True, 'borradas': sobran}
 
 
+def fecha_corrida(nombre):
+    """'20261106-165012' (UTC, como lo nombra refresh.sh) → '2026-11-06 16:50 UTC'."""
+    try:
+        return f'{nombre[0:4]}-{nombre[4:6]}-{nombre[6:8]} {nombre[9:11]}:{nombre[11:13]} UTC'
+    except IndexError:
+        return nombre
+
+
+def quitar_carpetas_vacias(raiz):
+    if not os.path.isdir(raiz):
+        return
+    for carpeta, _, _ in os.walk(raiz, topdown=False):
+        try:
+            os.rmdir(carpeta)  # sólo borra si está vacía
+        except OSError:
+            pass
+
+
+def items_a_deshacer(dev, corrida, datos):
+    """Las rutas de dev que tocó ese refresco: las de su plan.json o, en corridas
+    hechas antes de que se guardara el plan, las de REFRESH_DATA."""
+    plan_path = os.path.join(corrida, 'plan.json')
+    if os.path.exists(plan_path):
+        with open(plan_path, encoding='utf-8') as f:
+            plan = json.load(f)
+        if os.path.realpath(plan['dev']) != dev:
+            raise ErrorRefresco(f"Ese refresco fue sobre {plan['dev']}, no sobre {dev}.")
+        destinos = [it['destino'] for it in plan['items']]
+    else:
+        if not os.path.isdir(os.path.join(corrida, 'dev-anterior')):
+            raise ErrorRefresco('No se encontró el respaldo de ese refresco.')
+        env_dev = leer_env(os.path.join(dev, '.env'))
+        destinos = []
+        for token in (datos or '').split():
+            variable, _, default = token.partition(':')
+            if not variable or not default:
+                raise ErrorRefresco(f'REFRESH_DATA mal escrito: "{token}" (formato VARIABLE:default).')
+            destinos.append(resolver(dev, env_dev, variable, default))
+    if not destinos:
+        raise ErrorRefresco('Ese refresco no tiene rutas de datos que regresar.')
+    for destino in destinos:
+        if not dentro_de(destino, dev) or os.path.realpath(destino) == dev:
+            raise ErrorRefresco(f'La ruta {destino} no queda dentro de {dev}; no se toca.')
+        if os.path.islink(destino):
+            raise ErrorRefresco(f'La ruta {destino} es un enlace simbólico; no se toca.')
+    return destinos
+
+
+def deshacer(args):
+    dev = os.path.realpath(args.dev)
+    if not os.path.isdir(dev):
+        raise ErrorRefresco(f'No existe la carpeta de dev: {dev}')
+    base = os.path.abspath(args.base)
+    corridas = sorted(d for d in os.listdir(base) if os.path.isdir(os.path.join(base, d))) \
+        if os.path.isdir(base) else []
+    if not corridas:
+        raise ErrorRefresco('No hay ningún refresco que deshacer.')
+    nombre = corridas[-1]
+    corrida = os.path.join(base, nombre)
+    fecha = fecha_corrida(nombre)
+    if os.path.exists(os.path.join(corrida, 'deshecho.json')):
+        raise ErrorRefresco(f'El último refresco (del {fecha}) ya se deshizo.')
+    if os.path.lexists(os.path.join(corrida, 'nuevo')) or os.path.lexists(os.path.join(corrida, 'al-deshacer')):
+        raise ErrorRefresco(f'El refresco del {fecha} no terminó limpio; revísalo a mano en {corrida}.')
+    destinos = items_a_deshacer(dev, corrida, args.datos)
+    anterior = os.path.join(corrida, 'dev-anterior')
+    al_deshacer = os.path.join(corrida, 'al-deshacer')
+    resumen = ' · '.join(os.path.relpath(d, dev) for d in destinos)
+    if args.solo_revisar:
+        return {'ok': True, 'corrida': nombre, 'fecha': fecha, 'resumen': resumen}
+
+    log(f'Deshaciendo el refresco del {fecha} ({corrida})')
+    hechos = []  # ('apartado', ruta_dev, ruta_al_deshacer) | ('regresado', ruta_dev, ruta_respaldo)
+    try:
+        for destino in destinos:
+            rutas = [destino] + [destino + s for s in ACOMPANANTES]
+            # 1) lo que dev tiene ahora (la copia de prod y lo hecho después) se aparta
+            for ruta in rutas:
+                if os.path.lexists(ruta):
+                    hacia = os.path.join(al_deshacer, os.path.relpath(ruta, dev))
+                    os.makedirs(os.path.dirname(hacia), exist_ok=True)
+                    shutil.move(ruta, hacia)
+                    hechos.append(('apartado', ruta, hacia))
+                    log(f'   dev → al-deshacer: {os.path.relpath(ruta, dev)}')
+            # 2) lo que dev tenía antes del refresco regresa (si no había nada, queda vacío)
+            for ruta in rutas:
+                desde = os.path.join(anterior, os.path.relpath(ruta, dev))
+                if os.path.lexists(desde):
+                    os.makedirs(os.path.dirname(ruta), exist_ok=True)
+                    shutil.move(desde, ruta)
+                    hechos.append(('regresado', ruta, desde))
+                    log(f'   respaldo → dev: {os.path.relpath(ruta, dev)}')
+    except Exception as e:
+        log(f'Falló al deshacer ({e!r}); regresando todo a como estaba…')
+        todo_regresado = True
+        for tipo, ruta, otra in reversed(hechos):
+            try:
+                if tipo == 'regresado':
+                    os.makedirs(os.path.dirname(otra), exist_ok=True)
+                    shutil.move(ruta, otra)
+                else:
+                    # Lo que haya en la ruta de dev sólo puede ser una copia a medias
+                    # de un move que falló (el original sigue en el respaldo): fuera.
+                    if os.path.lexists(ruta):
+                        quitar(ruta)
+                    os.makedirs(os.path.dirname(ruta), exist_ok=True)
+                    shutil.move(otra, ruta)
+            except Exception as e2:
+                todo_regresado = False
+                log(f'   ¡no se pudo regresar {ruta}: {e2!r}!')
+        if not todo_regresado:
+            raise ErrorRefresco(f'No se pudo deshacer ({e}) y no todo volvió a su lugar: revisa {corrida} '
+                                '(dev-anterior = lo de antes del refresco, al-deshacer = lo que dev tenía).')
+        # Todo volvió a su lugar: lo que quede en al-deshacer son copias a medias
+        # (un move que copió pero no pudo borrar el original).
+        shutil.rmtree(al_deshacer, ignore_errors=True)
+        raise ErrorRefresco(f'No se pudo deshacer ({e}); dev quedó como estaba.')
+
+    quitar_carpetas_vacias(anterior)
+    with open(os.path.join(corrida, 'deshecho.json'), 'w', encoding='utf-8') as f:
+        json.dump({'deshecho_el': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+                   'al_deshacer': al_deshacer}, f, ensure_ascii=False)
+    return {'ok': True, 'corrida': nombre, 'fecha': fecha, 'respaldo': al_deshacer,
+            'resumen': f'{resumen} regresados a como estaban antes del refresco del {fecha}'}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = p.add_subparsers(dest='comando', required=True)
@@ -321,9 +457,15 @@ def main():
     c = sub.add_parser('podar')
     c.add_argument('--base', required=True)
     c.add_argument('--conservar', type=int, default=3)
+    d = sub.add_parser('deshacer')
+    d.add_argument('--dev', required=True)
+    d.add_argument('--datos', default='')
+    d.add_argument('--base', required=True)
+    d.add_argument('--solo-revisar', action='store_true')
     args = p.parse_args()
     try:
-        resultado = {'preparar': preparar, 'cambiar': cambiar, 'podar': podar}[args.comando](args)
+        resultado = {'preparar': preparar, 'cambiar': cambiar, 'podar': podar,
+                     'deshacer': deshacer}[args.comando](args)
     except ErrorRefresco as e:
         log(f'❌ {e}')
         print(json.dumps({'ok': False, 'error': str(e)}, ensure_ascii=False))
