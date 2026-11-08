@@ -32,6 +32,18 @@
     ]
   },
   {
+    "id": "despliegue-mide-chatbot-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de mide-chatbot (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "mide-chatbot_dev"
+      }
+    ]
+  },
+  {
     "id": "despliegue-document-ai",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",

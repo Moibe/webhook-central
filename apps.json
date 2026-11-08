@@ -5,12 +5,24 @@
     "stack": "python",
     "branch": "main",
     "owner": "Moibe",
-    "env": "dev",
+    "env": "prod",
     "pm2_name": "mide-chatbot-api",
     "deploy_url": "/hooks/despliegue-mide-chatbot",
     "merge_url": "/hooks/promover-mide-chatbot",
     "app_url": "http://172.10.30.15:8080",
     "public_url": "https://mide-chatbot-api.buzzword.com.mx",
+    "repo_url": "https://github.com/Moibe/mide-chatbot"
+  },
+  {
+    "id": "mide-chatbot_dev",
+    "name": "Mide Chatbot (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "mide-chatbot-api-dev",
+    "deploy_url": "/hooks/despliegue-mide-chatbot-dev",
+    "app_url": "http://172.10.30.15:8081",
     "repo_url": "https://github.com/Moibe/mide-chatbot"
   },
   {
