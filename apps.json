@@ -316,6 +316,31 @@
     "repo_url": "https://github.com/Moibe/santander_ia"
   },
   {
+    "id": "santander_closed",
+    "name": "Santander Closed",
+    "stack": "python",
+    "branch": "main",
+    "owner": "Moibe",
+    "env": "prod",
+    "pm2_name": "santander_closed",
+    "deploy_url": "/hooks/despliegue-santander_closed",
+    "merge_url": "/hooks/promover-santander_closed",
+    "app_url": "http://172.10.30.15:8102",
+    "repo_url": "https://github.com/Moibe/santander_closed"
+  },
+  {
+    "id": "santander_closed_dev",
+    "name": "Santander Closed (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "santander_closed_dev",
+    "deploy_url": "/hooks/despliegue-santander_closed_dev",
+    "app_url": "http://172.10.30.15:8103",
+    "repo_url": "https://github.com/Moibe/santander_closed"
+  },
+  {
     "id": "inventario-ti",
     "name": "Inventario TI",
     "stack": "svelte",
