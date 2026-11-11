@@ -34,6 +34,20 @@
     "pm2_name": "document-ai-api",
     "deploy_url": "/hooks/despliegue-document-ai",
     "app_url": "http://172.10.30.15:8099",
+    "repo_url": "https://github.com/Moibe/document_ai",
+    "env": "prod",
+    "merge_url": "/hooks/promover-document-ai"
+  },
+  {
+    "id": "document_ai-dev",
+    "name": "Documentos IA (Dev)",
+    "stack": "python",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "document-ai-api-dev",
+    "deploy_url": "/hooks/despliegue-document-ai-dev",
+    "app_url": "http://172.10.30.15:8102",
     "repo_url": "https://github.com/Moibe/document_ai"
   },
   {

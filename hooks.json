@@ -56,6 +56,44 @@
     ]
   },
   {
+    "id": "despliegue-document-ai-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de document_ai (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "document_ai-dev"
+      }
+    ]
+  },
+  {
+    "id": "promover-document-ai",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "document_ai"
+      }
+    ]
+  },
+  {
     "id": "despliegue-notificaciones-twilio",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
