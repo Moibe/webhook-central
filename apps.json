@@ -367,6 +367,19 @@
     "repo_url": "https://github.com/Moibe/inventario-ti"
   },
   {
+    "id": "rad_view",
+    "name": "RAD View",
+    "stack": "svelte",
+    "branch": "main",
+    "owner": "Moibe",
+    "env": "prod",
+    "pm2_name": "rad-view",
+    "deploy_url": "/hooks/despliegue-rad_view",
+    "app_url": "http://172.10.30.15:4902",
+    "repo_url": "https://github.com/Moibe/rad_view",
+    "merge_url": "/hooks/promover-rad_view"
+  },
+  {
     "id": "rad_view-dev",
     "name": "RAD View (Dev)",
     "stack": "svelte",

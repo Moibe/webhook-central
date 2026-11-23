@@ -618,6 +618,44 @@
     ]
   },
   {
+    "id": "promover-rad_view",
+    "http-methods": [
+      "POST"
+    ],
+    "execute-command": "/home/mbriseno/webhook-central/scripts/promote.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "include-command-output-in-response": true,
+    "include-command-output-in-response-on-error": true,
+    "response-headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "rad_view"
+      }
+    ]
+  },
+  {
+    "id": "despliegue-rad_view",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de rad_view (prod) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "rad_view"
+      }
+    ]
+  },
+  {
     "id": "despliegue-rad_view-dev",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
