@@ -367,6 +367,18 @@
     "repo_url": "https://github.com/Moibe/inventario-ti"
   },
   {
+    "id": "rad_view-dev",
+    "name": "RAD View (Dev)",
+    "stack": "svelte",
+    "branch": "dev",
+    "owner": "Moibe",
+    "env": "dev",
+    "pm2_name": "rad-view-dev",
+    "deploy_url": "/hooks/despliegue-rad_view-dev",
+    "app_url": "http://172.10.30.15:4901",
+    "repo_url": "https://github.com/Moibe/rad_view"
+  },
+  {
     "id": "nexus_monitor",
     "name": "Biblioratum Monitor",
     "stack": "svelte",

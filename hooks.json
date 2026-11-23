@@ -618,6 +618,18 @@
     ]
   },
   {
+    "id": "despliegue-rad_view-dev",
+    "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
+    "command-working-directory": "/home/mbriseno/webhook-central",
+    "response-message": "✅ Despliegue de rad_view (dev) iniciado",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "rad_view-dev"
+      }
+    ]
+  },
+  {
     "id": "despliegue-nexus_monitor",
     "execute-command": "/home/mbriseno/webhook-central/scripts/deploy.sh",
     "command-working-directory": "/home/mbriseno/webhook-central",
